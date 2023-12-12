@@ -14,4 +14,3 @@ function hehe()
 {
     console.log(this);
 }
-// hehe
