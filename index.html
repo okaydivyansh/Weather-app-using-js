@@ -38,20 +38,43 @@
 </body>
 <script>
     const apiKey = "7dfdde833ea217d7f701cefc0c7c48ed";
-    const apiUrl = "https://api.openweathermap.org/data/2.5/weather? units=metric&q=bangalore";
+    const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
     const searchBox=document.querySelector(".search input");
     const searchBtn=document.querySelector(".search button");
-    async function checkweather()
+    const weatherIcon=document.querySelector(".weather-icon");
+    async function checkweather(city)
     {
-    const response = await fetch(apiUrl + `&appid=${apiKey}`); 
+    const response = await fetch(apiUrl + city+  `&appid=${apiKey}`); 
     var data = await response.json();
     console.log(data);
     document.querySelector(".city").innerHTML=data.name;
     document.querySelector(".temp").innerHTML=Math.round(data.main.temp)+"°c";
     document.querySelector(".humidity").innerHTML=data.main.humidity+"%";
     document.querySelector(".wind").innerHTML=data.wind.speed+"km/h";
-
+    if(data.weather[0].main=="Clouds")
+    {
+        weatherIcon.src="images/clouds.png";
     }
+    else if(data.weather[0].main=="Clear")
+    {
+        weatherIcon.src="images/clear.png";
+    }
+    else if(data.weather[0].main=="Rain")
+    {
+        weatherIcon.src="images/rain.png";
+    }
+    else if(data.weather[0].main=="Drizzle")
+    {
+        weatherIcon.src[0]="images/drizzle.png";
+    }
+    else if(data.weather[0].main=="Mist")
+    {
+        weatherIcon.src[0]="images/mist.png";
+    }
+    }
+    searchBtn.addEventListener("click",()=>{
+        checkweather(searchBox.value );
+    })
     checkweather();
 </script>
 </html>
